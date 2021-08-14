@@ -22,7 +22,7 @@ const createAndSavePerson = done => {
     age: 52,
     favoriteFoods: ["Seafood", "Pasta", "Grill"]
   });
-  dm_valed.save(function(err, data) {
+  dm_valed.save((err, data) => {
     err ? done(err) : done(null, data);
   });
 };
@@ -35,33 +35,37 @@ const arrayOfPeople = [
 ];
 
 const createManyPeople = (arrayOfPeople, done) => {
-  Person.create(arrayOfPeople, function(err, data) {
+  Person.create(arrayOfPeople, (err, data) => {
     err ? done(err) : done(null, data);
   });
 };
 
 const findPeopleByName = (personName, done) => {
-  Person.find({ name: personName }, function(err, data) {
+  Person.find({ name: personName }, (err, data) => {
     err ? done(err) : done(null, data);
   });
 };
 
 const findOneByFood = (food, done) => {
-  Person.findOne({ favoriteFoods: food }, function(err, data) {
+  Person.findOne({ favoriteFoods: food }, (err, data) => {
     err ? done(err) : done(null, data);
   });
 };
 
 const findPersonById = (personId, done) => {
-  Person.findById({ _id: personId }, function(err, data) {
+  Person.findById({ _id: personId }, (err, data) => {
     err ? done(err) : done(null, data);
   });
 };
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
-
-  done(null /*, data*/);
+  Person.findById({ _id: personId }, (err, data) => {
+    err ? done(err) : data.favoriteFoods.push(foodToAdd);
+    data.save((err, data) => {
+      err ? done(err) : done(null, data);
+    });
+  });
 };
 
 const findAndUpdate = (personName, done) => {
