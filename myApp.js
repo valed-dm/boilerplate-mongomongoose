@@ -22,9 +22,7 @@ const createAndSavePerson = done => {
     age: 52,
     favoriteFoods: ["Seafood", "Pasta", "Grill"]
   });
-  dm_valed.save((err, data) => {
-    err ? done(err) : done(null, data);
-  });
+  dm_valed.save((err, data) => (err ? done(err) : done(null, data)));
 };
 
 const arrayOfPeople = [
@@ -35,36 +33,34 @@ const arrayOfPeople = [
 ];
 
 const createManyPeople = (arrayOfPeople, done) => {
-  Person.create(arrayOfPeople, (err, data) => {
-    err ? done(err) : done(null, data);
-  });
+  Person.create(arrayOfPeople, (err, data) =>
+    err ? done(err) : done(null, data)
+  );
 };
 
 const findPeopleByName = (personName, done) => {
-  Person.find({ name: personName }, (err, data) => {
-    err ? done(err) : done(null, data);
-  });
+  Person.find({ name: personName }, (err, data) =>
+    err ? done(err) : done(null, data)
+  );
 };
 
 const findOneByFood = (food, done) => {
-  Person.findOne({ favoriteFoods: food }, (err, data) => {
-    err ? done(err) : done(null, data);
-  });
+  Person.findOne({ favoriteFoods: food }, (err, data) =>
+    err ? done(err) : done(null, data)
+  );
 };
 
 const findPersonById = (personId, done) => {
-  Person.findById({ _id: personId }, (err, data) => {
-    err ? done(err) : done(null, data);
-  });
+  Person.findById({ _id: personId }, (err, data) =>
+    err ? done(err) : done(null, data)
+  );
 };
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
   Person.findById({ _id: personId }, (err, data) => {
     err ? done(err) : data.favoriteFoods.push(foodToAdd);
-    data.save((err, data) => {
-      err ? done(err) : done(null, data);
-    });
+    data.save((err, data) => (err ? done(err) : done(null, data)));
   });
 };
 
@@ -74,14 +70,14 @@ const findAndUpdate = (personName, done) => {
     { name: personName },
     { age: ageToSet },
     { new: true },
-    (err, data) => {
-      err ? done(err) : done(null, data);
-    }
+    (err, data) => (err ? done(err) : done(null, data))
   );
 };
 
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findByIdAndRemove({ _id: personId }, (err, data) =>
+    err ? done(err) : done(null, data)
+  );
 };
 
 const removeManyPeople = done => {
